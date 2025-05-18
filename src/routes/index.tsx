@@ -8,6 +8,12 @@ export default function MainStack() {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="screens/auth/auth"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
