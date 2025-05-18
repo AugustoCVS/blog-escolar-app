@@ -1,0 +1,17 @@
+export interface ICardRestaurant {
+  imageSrc?: string,
+  imageAlt?: string,
+  tagText?: string,
+  title?: string,
+  addressDescription?: string,
+  distanceDescription?: string,
+  priceDescription?: string,
+  price?: number,
+  restaurantRating?: number,
+  maxRating?: number,
+  isFavorited?: boolean,
+  action?: () => void,
+  rootAction?: () => void,
+  buttonText?: string,
+  shouldRenderTag?: boolean,
+}
