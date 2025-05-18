@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PaperProvider } from "react-native-paper";
 import { Host } from "react-native-portalize";
 import { Provider } from "react-redux";
+import ToastManager from 'toastify-react-native';
 
 import { store } from '@/redux/store';
 import MainStack from "@/routes";
@@ -33,6 +34,7 @@ export default function RootLayout() {
             <QueryClientProvider client={queryClient}>
               <PaperProvider>
                 <StatusBar style="light" />
+                <ToastManager />
                 <MainStack />
               </PaperProvider>
             </QueryClientProvider>

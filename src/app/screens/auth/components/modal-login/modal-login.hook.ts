@@ -7,6 +7,8 @@ import { useRouter } from "expo-router";
 import { useToast } from "native-base";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Toast } from "toastify-react-native";
+import { ERROR_MESSAGE } from "./modal-login.constants";
 import { ModalLoginProps } from "./model-login.types";
 
 export const useModalLogin = ({ modalRef }: ModalLoginProps) => {
@@ -26,7 +28,7 @@ export const useModalLogin = ({ modalRef }: ModalLoginProps) => {
 
   const navigateToHome = () => {
     handleCloseModalLogin();
-    router.push("/(tabs)/index");
+    router.push("/(tabs)");
   }
 
   const handleLogin = useMutation({
@@ -35,8 +37,8 @@ export const useModalLogin = ({ modalRef }: ModalLoginProps) => {
         email: data.email,
         password: data.password,
       }),
-    onError: (err) => {
-      console.log("err", err);
+    onError: () => {
+      Toast.error(ERROR_MESSAGE)
     },
     onSuccess: async (res) => {
       await saveTokensOnStorage(res.id);
