@@ -12,4 +12,5 @@ export type InputProps = {
   formatter?: (value: string) => string;
   secondInput?: boolean;
   icon?: React.ReactNode;
+  onPress?: () => void;
 };

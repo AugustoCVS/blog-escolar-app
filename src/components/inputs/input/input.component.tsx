@@ -1,8 +1,8 @@
 import React from "react";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import * as T from "./input.types";
 import { colors } from "@/styles/colors";
+import * as T from "./input.types";
 
 export const Input: React.FC<T.InputProps> = ({
   icon,
@@ -15,16 +15,16 @@ export const Input: React.FC<T.InputProps> = ({
   errorMessage,
   secureTextEntry,
   onChangeText,
-  formatter
+  formatter,
+  onPress,
 }) => {
   const invalid = !!errorMessage || isInvalid;
   const borderColor = invalid ? "border-red-500" : "border-gray-300";
   const backgroundColor = secondInput && "bg-white-100";
-  const padding = !!icon ? "pl-12" : "pl-4";
 
   const handleChangeText = (text: string) => {
     if (!!formatter) {
-      onChangeText?.(formatter(text)); // Aplica a formatação
+      onChangeText?.(formatter(text)); 
     } else {
       onChangeText?.(text);
     }
@@ -48,10 +48,10 @@ export const Input: React.FC<T.InputProps> = ({
             value={value}
             onChangeText={handleChangeText}
             secureTextEntry={secureTextEntry}
-            className={`h-14 w-full border ${borderColor} rounded-xl ${padding} text-black ${backgroundColor}`}
+            className={`h-14 w-full border ${borderColor} rounded-xl pl-4 text-black ${backgroundColor}`}
           />
 
-          <View className="absolute left-4 top-4">{icon}</View>
+          <TouchableOpacity className="absolute right-4 top-5" onPress={onPress} >{icon}</TouchableOpacity>
         </View>
       </View>
 
