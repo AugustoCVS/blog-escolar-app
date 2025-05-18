@@ -8,6 +8,7 @@ import {
 
 export const AuthService = {
   register: async (user: RegisterRequestProps) => {
+
     const res = await api.post("/user/register", user);
 
     return res.data;

@@ -4,6 +4,7 @@ import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { Text, View } from "react-native";
 import { useAuth } from './auth.hook';
 import { ModalLogin } from './components/modal-login/modal-login.component';
+import { ModalRegister } from './components/modal-register/modal-register.component';
 
 export default function Auth() {
   const { refs, actions } = useAuth();
@@ -41,12 +42,14 @@ export default function Auth() {
               text='Cadastro'
               isFirstStyle={false}
               textColor='text-white-100'
+              onPress={actions.handleOpenModalRegister}
             />
           </View>
         </View>
       </View>
 
       <ModalLogin modalRef={refs.modalLogin} />
+      <ModalRegister modalRef={refs.modalRegister} />
     </>
   )
 }
