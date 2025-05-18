@@ -1,7 +1,7 @@
-import React from "react";
-import { Pressable, View, Text } from "react-native";
-import { Center } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
+import { Center } from "native-base";
+import React from "react";
+import { Pressable, Text, View } from "react-native";
 import { GenericModalHeaderProps } from "./header.types";
 
 export const GenericModalHeader: React.FC<GenericModalHeaderProps> = ({
@@ -17,7 +17,7 @@ export const GenericModalHeader: React.FC<GenericModalHeaderProps> = ({
     >
       {title && (
         <View className="flex items-center justify-center text-center text-lg">
-          <Text className="text-3xl font-bold text-blue-100">{title}</Text>
+          <Text className="text-3xl font-bold text-gray-700">{title}</Text>
         </View>
       )}
 

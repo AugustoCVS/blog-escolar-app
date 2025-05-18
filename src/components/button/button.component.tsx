@@ -1,8 +1,8 @@
-import React from "react";
-import { TouchableOpacity, Text, View } from "react-native";
-import { ButtonProps } from "./button.types";
-import { Spinner } from "native-base";
 import { colors } from "@/styles/colors";
+import { Spinner } from "native-base";
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { ButtonProps } from "./button.types";
 
 export const Button: React.FC<ButtonProps> = ({
   children,
@@ -18,8 +18,8 @@ export const Button: React.FC<ButtonProps> = ({
   leftIcon,
   ...rest
 }) => {
-  const backgroundColor = isFirstStyle ? "bg-orange-200" : "bg-white-100";
-  const loadingColor = isFirstStyle ? colors.orange[100] : colors.orange[200];
+  const backgroundColor = isFirstStyle ? "bg-gray-700" : "bg-orange-100";
+  const loadingColor = isFirstStyle ? colors.gray[700] : colors.orange[100];
 
   const background = disabled ? "bg-gray-100" : backgroundColor
   

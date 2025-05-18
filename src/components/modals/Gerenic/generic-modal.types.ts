@@ -1,8 +1,8 @@
-import {RefObject} from 'react';
-import {Modalize} from 'react-native-modalize';
+import { RefObject } from 'react';
+import { Modalize } from 'react-native-modalize';
 
 export interface GenericModalProps {
-  modalizeRef: RefObject<Modalize>;
+  modalizeRef: RefObject<Modalize | null>;
   title?: string;
   onClose?: () => void;
   children: React.ReactNode;

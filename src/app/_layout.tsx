@@ -32,7 +32,7 @@ export default function RootLayout() {
           <Provider store={store}>
             <QueryClientProvider client={queryClient}>
               <PaperProvider>
-                <StatusBar style="dark" />
+                <StatusBar style="light" />
                 <MainStack />
               </PaperProvider>
             </QueryClientProvider>
