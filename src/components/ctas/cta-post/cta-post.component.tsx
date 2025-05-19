@@ -1,11 +1,11 @@
-import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { View } from "react-native";
 
 import { Card } from "../../cards/card";
-import { Cta } from "../cta"
-import { ICtaCoupons } from "./cta-coupons.types";
+import { Cta } from "../cta";
+import { ICtaPost } from "./cta-post.types";
 
-export const CtaCoupons: React.FC<ICtaCoupons> = ({
+export const CtaPost: React.FC<ICtaPost> = ({
   imgUrl,
   alt,
   imageBgColor,
@@ -20,7 +20,6 @@ export const CtaCoupons: React.FC<ICtaCoupons> = ({
 
   return (
     <Cta.Root
-      isCoupon={true}
       discount={discount}
       onPress={onPress}
     >

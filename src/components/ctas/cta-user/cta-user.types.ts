@@ -1,4 +1,4 @@
-export interface ICtaMenu {
+export interface ICtaUser {
   title: string;
   description: string;
   icon: React.ReactNode;

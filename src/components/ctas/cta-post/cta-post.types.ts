@@ -1,4 +1,4 @@
-export interface ICtaCoupons {
+export interface ICtaPost {
   imgUrl?: string;
   alt?: string;
   title?: string;

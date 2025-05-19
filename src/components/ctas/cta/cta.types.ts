@@ -1,6 +1,5 @@
 export interface IRoot {
   children: React.ReactNode;
-  isCoupon?: boolean;
   discount?: number;
   onPress?: () => void;
   height?: string;
