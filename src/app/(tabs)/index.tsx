@@ -1,5 +1,6 @@
+import { CtaPost } from '@/components/ctas/cta-post/cta-post.component';
 import { Redirect } from 'expo-router';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { Header } from './components/home/header/header.component';
 import { useHome } from './hooks/home/home.hook';
 
@@ -20,6 +21,27 @@ export default function Home() {
         name={states.user.name}
         value={states.search}
         setValue={actions.handleDebounceSearch}
+     />
+
+     <FlatList 
+        data={states.posts}
+        keyExtractor={(item) => item.id}
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
+        onRefresh={actions.handleRefresh}
+        refreshing={states.loadingRefesh}
+        onEndReached={actions.handleLoadMore}
+        onEndReachedThreshold={0.1}
+        contentContainerClassName='px-4 gap-4 py-4'
+        renderItem={({ item }) => (
+          <CtaPost
+            title={item.title}
+            firstDescription={item.author.name}
+            secondDescription={item.content}
+            date={item.createdAt}
+            onPress={() => actions.handleNavigateToPost(item.id)}
+          />
+        )}
      />
     </View>
   );

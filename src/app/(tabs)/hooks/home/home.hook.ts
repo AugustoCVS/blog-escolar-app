@@ -63,6 +63,10 @@ export const useHome = () => {
     refetchOnWindowFocus: false,
   });
 
+  const handleRefresh = () => {
+    getPosts.refetch();
+  }
+
   const handleLoadMore = () => {
     setPaginationProps({
       ...paginationProps,
@@ -80,6 +84,7 @@ export const useHome = () => {
 
   const posts = debouncedSearch ? searchPosts.data : ( getPosts.data || []);
   const loadingRequest = searchPosts.isLoading || getPosts.isFetching
+  const loadingRefesh = getPosts.isRefetching;
 
   console.log('posts', posts);
 
@@ -91,12 +96,14 @@ export const useHome = () => {
       loading,
       loadingRequest,
       posts,
+      loadingRefesh,
     },
     actions: {
       handleLoadMore,
       handleNavigateToPost,
       handleNavigateToCreatePost,
       handleDebounceSearch,
+      handleRefresh,
     }
   }
 }
