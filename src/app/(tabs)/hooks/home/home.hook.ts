@@ -4,11 +4,11 @@ import { RootState } from "@/redux/store";
 import { PostsService } from "@/services/requests/posts";
 import { getToken } from "@/utils/auth";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
+import { RelativePathString, useRouter } from "expo-router";
 import { useSelector } from "react-redux";
 
 export const useHome = () => {
-  const navigate = useRouter();
+  const router = useRouter();
   const user = useSelector((state: RootState) => state.user);
 
   const [search, setSearch] = useState<string>("");
@@ -75,7 +75,7 @@ export const useHome = () => {
   }
 
   const handleNavigateToPost = (id: string) => {
-    // navigate(`/post/${id}`);
+    router.push(`/screens/post/${id}` as RelativePathString);
   }
 
   const handleNavigateToCreatePost = () => {

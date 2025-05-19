@@ -14,6 +14,13 @@ export default function MainStack() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="screens/post/[postId]"
+        options={{
+          title: "Postagem",
+          headerBackTitle: "Voltar",
+        }}
+      />
     </Stack>
   );
 }
