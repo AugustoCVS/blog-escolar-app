@@ -10,6 +10,7 @@ import { Host } from "react-native-portalize";
 import { Provider } from "react-redux";
 import ToastManager from 'toastify-react-native';
 
+import { UserInfo } from '@/providers/user';
 import { store } from '@/redux/store';
 import MainStack from "@/routes";
 import "@/styles/global.css";
@@ -33,9 +34,11 @@ export default function RootLayout() {
           <Provider store={store}>
             <QueryClientProvider client={queryClient}>
               <PaperProvider>
-                <StatusBar style="light" />
-                <ToastManager />
-                <MainStack />
+                <UserInfo>
+                  <StatusBar style="light" />
+                  <ToastManager />
+                  <MainStack />
+                </UserInfo>
               </PaperProvider>
             </QueryClientProvider>
           </Provider>

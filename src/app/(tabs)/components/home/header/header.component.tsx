@@ -1,6 +1,7 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 import { Input } from "@/components/inputs/input/input.component";
+import { colors } from '@/styles/colors';
 import { Text, View } from "react-native";
 import { HeaderProps } from "./header.types";
 
@@ -19,7 +20,8 @@ export const Header: React.FC<HeaderProps> = ({name, value, setValue}) => {
         placeholder="Pesquisar"
         onChangeText={setValue}
         value={value}
-        icon={<AntDesign name="search1" size={16} color="white" />}
+        icon={<AntDesign name="search1" size={18} color={colors.gray[700]} />}
+        secondInput
       />
     </View>
   )
