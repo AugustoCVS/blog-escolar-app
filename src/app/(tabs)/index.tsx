@@ -1,10 +1,10 @@
 import { Redirect } from 'expo-router';
-import { ScrollView } from 'native-base';
 import { Text, View } from 'react-native';
+import { Header } from './components/home/header/header.component';
 import { useHome } from './hooks/home/home.hook';
 
 export default function Home() {
-  const { states } = useHome();
+  const { states, actions } = useHome();
 
   if (states.loading) {
     return <Text>Loading...</Text>;
@@ -15,16 +15,12 @@ export default function Home() {
   }
 
   return (
-    <ScrollView 
-      className="flex-1"
-      showsVerticalScrollIndicator={false}
-      onScrollToTop={() => {}}
-    >
-      <View
-        className='flex items-center justify-center h-screen'
-      >
-        <Text>Hello world</Text>
-      </View>
-    </ScrollView>
+    <View className="flex-1 bg-white-200">
+     <Header 
+        name={states.user.name}
+        value={states.search}
+        setValue={actions.handleDebounceSearch}
+     />
+    </View>
   );
 } 

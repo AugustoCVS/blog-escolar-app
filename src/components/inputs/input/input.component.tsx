@@ -32,7 +32,7 @@ export const Input: React.FC<T.InputProps> = ({
 
   return (
     <View 
-      className="flex flex-col mb-4"
+      className="flex flex-col mb-4 w-full"
     >
       <View
         className="flex flex-col gap-2"
