@@ -86,8 +86,6 @@ export const useHome = () => {
   const loadingRequest = searchPosts.isLoading || getPosts.isFetching
   const loadingRefesh = getPosts.isRefetching;
 
-  console.log('posts', posts);
-
   return {
     states: {
       search,
