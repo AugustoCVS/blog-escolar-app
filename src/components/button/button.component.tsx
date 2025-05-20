@@ -1,4 +1,3 @@
-import { colors } from "@/styles/colors";
 import { Spinner } from "native-base";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -19,8 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   const backgroundColor = isFirstStyle ? "bg-gray-700" : "bg-orange-100";
-  const loadingColor = isFirstStyle ? colors.gray[700] : colors.orange[100];
-
+  
   const background = disabled ? "bg-gray-100" : backgroundColor
   
   const textButtonColor = textColor ? textColor : "text-black";
@@ -46,7 +44,7 @@ export const Button: React.FC<ButtonProps> = ({
           {leftIcon && leftIcon}
           <Text className={`${textSizeStyle} ${textButtonColor} ${textBoldStyle}`}>
             {loading ? (
-              <Spinner color={loadingColor} size="sm" className="pt-1" />
+              <Spinner color="white" size="sm" className="pt-1" />
             ) : (
               text
             )}
