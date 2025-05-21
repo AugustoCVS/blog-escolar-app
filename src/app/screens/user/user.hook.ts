@@ -4,6 +4,7 @@ import { Toast } from "toastify-react-native";
 
 import { RootState } from "@/redux/store";
 import { RegisterRequestProps } from "@/services/interfaces/auth";
+import { UpdateUserProps } from "@/services/interfaces/user";
 import { AuthService } from "@/services/requests/auth";
 import { UserService } from "@/services/requests/user";
 import { useRouter } from "expo-router";
@@ -40,12 +41,10 @@ export const useUser = ({userId}: {userId: string}) => {
       return await UserService.getUser({ id: userId });
     },
     enabled: userId !== 'criar',
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
   })
 
   const createUser = useMutation({
-    mutationFn: (data: RegisterRequestProps) => AuthService.register(data),
+    mutationFn: async (data: RegisterRequestProps) => await AuthService.register(data),
     onError: () => {
       Toast.error(ERROR_MESSAGE)
     },
@@ -59,8 +58,11 @@ export const useUser = ({userId}: {userId: string}) => {
   });
 
   const updateUser = useMutation({
-    mutationFn: (data: RegisterRequestProps) => UserService.updateUser({ id: userId, data }),
-    onError: () => {
+    mutationFn: async ({id, data}: UpdateUserProps) => {
+       return await UserService.updateUser({ id, data })
+    },
+    onError: (err) => {
+      console.log(err)
       Toast.error(EDIT_ERROR_MESSAGE)
     },
     onSuccess: () => {
@@ -86,8 +88,8 @@ export const useUser = ({userId}: {userId: string}) => {
     },
   })
 
-  const handleDeleteUser = (id: string) => {
-    deleteUser.mutate(id);
+  const handleDeleteUser = (): void => {
+    deleteUser.mutate(userId);
   }
 
   const onSubmit = (data: RegisterRequestProps) => {
@@ -102,8 +104,13 @@ export const useUser = ({userId}: {userId: string}) => {
       return createUser.mutate(updatedData);
     }
 
-    if(edit) {
-      return updateUser.mutate(updatedData);
+    const userData = {
+      email: data.email,
+      name: data.name,
+    }
+
+    if(edit) {   
+      return updateUser.mutate({id: userId, data: userData});
     }
   };
 

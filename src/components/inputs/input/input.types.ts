@@ -14,4 +14,5 @@ export type InputProps = {
   icon?: React.ReactNode;
   onPress?: () => void;
   width?: string;
+  editable?: boolean;
 };

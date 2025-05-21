@@ -3,12 +3,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { View } from "react-native";
 
-import { Button } from '@/components/button/button.component';
 import { EmptyScreen } from '@/components/empty-screen/empty-screen.component';
 import { Input } from "@/components/inputs/input/input.component";
 import { colors } from '@/styles/colors';
 import { useLocalSearchParams } from 'expo-router';
-import { createUserSchema } from './user.constants';
+import { ButtonSection } from './components/button-section/button-section.component';
+import { createUserSchema, editUserSchema } from './user.constants';
 import { useUser } from './user.hook';
 import { formProps } from './user.types';
 
@@ -16,14 +16,14 @@ export default function User() {
   const { userId } = useLocalSearchParams();
 
   const { states, actions } = useUser({userId: userId as string});
-  const { control, handleSubmit, formState: { errors } } = useForm<formProps>({ 
-    resolver: yupResolver(createUserSchema),
+  const { control, handleSubmit, formState: { errors }, resetField } = useForm<formProps>({ 
+    resolver: yupResolver(userId === 'criar' ? createUserSchema : editUserSchema as any),
     values: {
-      name: states.user?.name || '',
-      email: states.user?.email || '',
+      name: states.userInfo?.name || '',
+      email: states.userInfo?.email || '',
       password: '',
       confirm_password: '',
-      isAdmin: states.user?.isAdmin || false,
+      isAdmin: states.userInfo?.isAdmin || false,
     } 
   });
 
@@ -39,13 +39,14 @@ export default function User() {
         control={control}
         name="name"
         render={({ field: { onChange, value } }) => (
-        <Input
+          <Input
             label="Nome"
             placeholder="Informe o seu nome"
             value={value}
             onChangeText={onChange}
             errorMessage={errors.name?.message}
             keyboardType="email-address"
+            editable={states.edit || userId === 'criar'}
           />
         )}
       />
@@ -54,22 +55,27 @@ export default function User() {
         control={control}
         name="email"
         render={({ field: { onChange, value } }) => (
-        <Input
+          <Input
             label="Email"
             placeholder="Informe o seu email"
             value={value}
             onChangeText={onChange}
             errorMessage={errors.email?.message}
             keyboardType="email-address"
+            editable={states.edit || userId === 'criar'}
           />
         )}
       />
 
+    {userId === 'criar' && (
+      <View
+        className="w-full flex flex-col gap-4"
+      >
       <Controller 
         control={control}
         name="password"
         render={({ field: { onChange, value } }) => (
-        <Input
+          <Input
             label="Senha"
             placeholder="Informe sua senha"
             value={value}
@@ -87,7 +93,7 @@ export default function User() {
         control={control}
         name="confirm_password"
         render={({ field: { onChange, value } }) => (
-        <Input
+          <Input
             label="Confirme sua senha"
             placeholder="Informe sua senha novamente"
             value={value}
@@ -100,12 +106,19 @@ export default function User() {
           />
         )}
       />
+      </View>
+    )}
 
-      <Button 
-        text="Criar usuário"
-        textColor="text-white-100"
-        onPress={handleSubmit(actions.onSubmit)}
-        loading={states.isLoading}
+      <ButtonSection 
+        isEdit={states.edit}
+        userId={userId as string}
+        isLoading={states.isLoadingCreateUser || states.isLoadingUpdateUser}
+        isDeleting={states.isLoadingDeleteUser}
+        resetField={resetField}
+        cancelEdit={actions.cancelEdit}
+        handleStartEdit={actions.handleStartEdit}
+        handleDeleteUser={actions.handleDeleteUser}
+        handleSaveUser={handleSubmit(actions.onSubmit)}
       />
     </View>
   )

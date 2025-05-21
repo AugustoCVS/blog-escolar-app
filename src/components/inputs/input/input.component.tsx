@@ -18,6 +18,7 @@ export const Input: React.FC<T.InputProps> = ({
   formatter,
   onPress,
   width,
+  editable = true,
 }) => {
   const invalid = !!errorMessage || isInvalid;
   const borderColor = invalid ? "border-red-500" : "border-gray-300";
@@ -51,6 +52,7 @@ export const Input: React.FC<T.InputProps> = ({
             onChangeText={handleChangeText}
             secureTextEntry={secureTextEntry}
             className={`h-14 w-full border ${borderColor} rounded-xl pl-4 text-black ${backgroundColor}`}
+            editable={editable}
           />
 
           <TouchableOpacity className="absolute right-4 top-5" onPress={onPress} >{icon}</TouchableOpacity>
