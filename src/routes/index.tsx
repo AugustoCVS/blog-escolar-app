@@ -30,6 +30,12 @@ export default function MainStack() {
           title: "Postagem",
         }}
       />
+      <Stack.Screen
+        name="screens/user/[userId]"
+        options={{
+          title: "Usuário",
+        }}
+      />
     </Stack>
   );
 }

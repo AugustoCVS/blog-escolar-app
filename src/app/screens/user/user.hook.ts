@@ -6,9 +6,9 @@ import { RootState } from "@/redux/store";
 import { RegisterRequestProps } from "@/services/interfaces/auth";
 import { AuthService } from "@/services/requests/auth";
 import { useSelector } from "react-redux";
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../constants/users.constants";
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "./user.constants";
 
-export const useUsers = () => {
+export const useUser = () => {
   const user = useSelector((state: RootState) => state.user);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -18,7 +18,7 @@ export const useUsers = () => {
 
   const createUser = useMutation({
     mutationFn: (data: RegisterRequestProps) => AuthService.register(data),
-    onError: (err) => {
+    onError: () => {
       Toast.error(ERROR_MESSAGE)
     },
     onSuccess: () => {
