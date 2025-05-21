@@ -1,11 +1,12 @@
 import { Button } from "@/components/button/button.component";
 import { CtaPost } from "@/components/ctas/cta-post/cta-post.component";
 import { FlatList, View } from "react-native";
-import { Header } from "./components/user/header/header.component";
-import { useUser } from "./hooks/user/user.hook";
 
-export default function User() {
-  const { states, actions } = useUser();
+import { Header } from "./components/profile/header/header.component";
+import { useProfile } from "./hooks/profile/profile.hook";
+
+export default function Profile() {
+  const { states, actions } = useProfile();
 
   return (
     <View className="flex-1 bg-white-200">

@@ -7,7 +7,7 @@ import { RootState } from "@/redux/store";
 import { PostsService } from "@/services/requests/posts";
 import { Toast } from "toastify-react-native";
 
-export const useUser = () => {
+export const useProfile = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   

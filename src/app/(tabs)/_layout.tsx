@@ -24,7 +24,7 @@ export default function TabLayout() {
           bottom: 0,
           height: 40, 
           width: '75%',
-          marginBottom: 15,
+          marginBottom: 30,
           paddingBottom: isIOS ? bottom : 10,
           borderRadius: 20,
           marginLeft: '12.5%',
@@ -73,9 +73,9 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="user"
+        name="profile"
         options={{
-          title: 'User',
+          title: 'Perfil',
           tabBarIcon: ({ color, focused }) => (
             <View
               className={`${focused && 'shadow-md shadow-orange-100'} rounded-full`}
