@@ -1,5 +1,3 @@
-import { Slackey_400Regular } from '@expo-google-fonts/slackey/400Regular';
-import { useFonts } from '@expo-google-fonts/slackey/useFonts';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
@@ -18,14 +16,6 @@ import "@/styles/global.css";
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  
-  const [fontsLoaded] = useFonts({
-    Slackey_400Regular,
-  })
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

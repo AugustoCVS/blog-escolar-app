@@ -8,13 +8,22 @@ import { AuthService } from "@/services/requests/auth";
 import { useSelector } from "react-redux";
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "./user.constants";
 
-export const useUser = () => {
+export const useUser = ({userId}: {userId: string}) => {
   const user = useSelector((state: RootState) => state.user);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
   const handleShowPassword = (): void => {
     setShowPassword(!showPassword);
   };
+
+  const handleStartEdit = () => {
+    setEdit(true)
+  }
+
+  const cancelEdit = () => {
+    setEdit(false)
+  }
 
   const createUser = useMutation({
     mutationFn: (data: RegisterRequestProps) => AuthService.register(data),
@@ -34,10 +43,22 @@ export const useUser = () => {
       isAdmin: isAdmin
     }
 
-    createUser.mutate(updatedData);
+    if(userId === 'criar') {
+      return createUser.mutate(updatedData);
+    }
+
+    if(edit) {
+      return console.log("Update user", updatedData);
+    }
   };
 
-  const isLoading = createUser.isPending;
+  // const userInfo = getUserById.data
+  // const isLoading = getUserById.isLoading
+  // const isLoadingDeleteUser = deleteUser.isPending
+  // const isLoadingCreateUser = createUser.isPending
+  // const isLoadingUpdateUser = updateUser.isPending
+
+  const isLoading = false;
 
   return {
     states: {

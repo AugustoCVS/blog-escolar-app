@@ -8,3 +8,11 @@ export type UserResponseProps = {
   email: string;
   isAdmin: boolean;
 }
+
+export type UpdateUserProps = {
+  id: string;
+  data: {
+    name: string;
+    email: string;
+  }
+}

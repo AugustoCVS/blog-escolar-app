@@ -1,39 +1,40 @@
 import { RootState } from "@/redux/store";
+import { UserService } from "@/services/requests/user";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { RelativePathString, useRouter } from "expo-router";
 import { useSelector } from "react-redux";
+import { Toast } from "toastify-react-native";
 
 export const useUsers = () => {
   const router = useRouter();
 
   const user = useSelector((state: RootState) => state.user);
 
-  const usersList = [
-    {
-      id: "1",
-      name: "John Doe",
-      email: "teste@teste.com",
+  const userListReq = useQuery({
+    queryKey: ["userList"],
+    queryFn: async () => {
+      return await UserService.listAllUsers();
     },
-    {
-      id: "2",
-      name: "Jane Doe",
-      email: "teste@gmail.com",
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  })
+
+  const deleteUser = useMutation({
+    mutationFn: async (id: string) => {
+      return await UserService.deleteUser({ id });
     },
-    {
-      id: "3",
-      name: "John Smith",
-      email: "teste@teste.com",
+    onSuccess: () => {
+      Toast.success("Usuário deletado com sucesso!");
+      userListReq.refetch();
     },
-  ]
+    onError: () => {
+      Toast.error("Erro ao deletar usuário");
+    },
+  })
 
   const handleRefresh = () => {
-    console.log("Refresh");
+    userListReq.refetch();
   }
-
-  const handleLoadMore = () => {
-    console.log("Load more");
-  }
-
-  const loadingRefesh = false;
 
   const handleNavigateToCreateUser = () => {
     router.push(`/screens/user/criar` as RelativePathString);
@@ -44,18 +45,22 @@ export const useUsers = () => {
   }
 
   const handleDeleteUser = (id: string) => {
-    console.log("Delete user", id);
+    deleteUser.mutate(id);
   }
+
+  const usersList = userListReq.data || [];
+  const loading = userListReq.isLoading || userListReq.isFetching; 
+  const loadingRefresh = userListReq.isRefetching;
 
   return {
     states: {
       user,
       usersList,
-      loadingRefesh,
+      loading,
+      loadingRefresh,
     },
     actions: {
       handleRefresh,
-      handleLoadMore,
       handleNavigateToCreateUser,
       handleDeleteUser,
       handleNavigateToUser,

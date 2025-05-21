@@ -21,9 +21,7 @@ export default function Users() {
          horizontal={false}
          showsVerticalScrollIndicator={false}
          onRefresh={actions.handleRefresh}
-         refreshing={states.loadingRefesh}
-         onEndReached={actions.handleLoadMore}
-         onEndReachedThreshold={0.1}
+         refreshing={states.loadingRefresh}
          contentContainerClassName='px-4 gap-4 py-4'
          renderItem={({ item }) => (
             <View
