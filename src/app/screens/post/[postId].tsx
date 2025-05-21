@@ -23,7 +23,7 @@ export default function Post() {
     }
   })
 
-  if(!states.post) {
+  if(!states.post && postId !== 'criar') {
     return <EmptyScreen message="Post não encontrado. Tente novamente!" />
   }
 
@@ -51,9 +51,11 @@ export default function Post() {
             <Text className="font-bold text-lg">{states.post?.title}</Text>
           )}
 
-        <Text className="text-sm text-gray-500">
-          {formatDate(states.post.createdAt)}
-        </Text>
+        {states.post?.createdAt && (
+          <Text className="text-sm text-gray-500">
+            {formatDate(states.post.createdAt)}
+          </Text>
+        )}
       </View>
       
       <View className="flex flex-col w-full mt-8">
@@ -97,23 +99,8 @@ export default function Post() {
           />
         )}
 
-        {!states.edit && postId !== 'criar' ? (
-            <Text className="text-xs text-gray-400">Autor: {states.post?.author.name}</Text>
-          ) : (
-          <Controller 
-            control={control}
-            name="author"
-            render={({ field: { onChange, value } }) => (
-              <Input
-                placeholder="Autor"	
-                value={value}
-                onChangeText={onChange}
-                errorMessage={errors.author?.message}
-                keyboardType="default"
-                width="w-2/4"
-              />
-            )}
-          />
+        {postId !== 'criar' && (
+          <Text className="text-xs text-gray-400">Autor: {states.post?.author.name}</Text>
         )}
       </View>
       
