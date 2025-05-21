@@ -8,7 +8,7 @@ import { Text, View } from "react-native";
 import { useHeader } from './header.hook';
 import { HeaderProps } from "./header.types";
 
-export const Header: React.FC<HeaderProps> = ({name, value, setValue, createPost}) => {
+export const Header: React.FC<HeaderProps> = ({name, isAdmin, value, setValue, createPost}) => {
   const { actions } = useHeader();
 
   return (
@@ -38,14 +38,16 @@ export const Header: React.FC<HeaderProps> = ({name, value, setValue, createPost
           value={value}
           icon={<AntDesign name="search1" size={18} color={colors.gray[700]} />}
           secondInput
-          width='w-3/4'
+          width={isAdmin ? '3/4' : 'w-full'}
         />
 
-        <Button 
+       { isAdmin && (
+         <Button 
           text='Criar'
           onPress={createPost}
           className='w-1/4 p-2 bg-white-100 h-14 mt-2 flex items-center justify-center rounded-xl'
         />
+       )}
       </View>
     </View>
   )

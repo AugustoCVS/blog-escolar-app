@@ -4,15 +4,32 @@ import { Controller, useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { Button } from '@/components/button/button.component';
+import { EmptyScreen } from '@/components/empty-screen/empty-screen.component';
 import { Input } from "@/components/inputs/input/input.component";
 import { colors } from '@/styles/colors';
+import { useLocalSearchParams } from 'expo-router';
 import { createUserSchema } from './user.constants';
 import { useUser } from './user.hook';
 import { formProps } from './user.types';
 
 export default function User() {
-  const { states, actions } = useUser();
-  const { control, handleSubmit, formState: { errors } } = useForm<formProps>({ resolver: yupResolver(createUserSchema) });
+  const { userId } = useLocalSearchParams();
+
+  const { states, actions } = useUser({userId: userId as string});
+  const { control, handleSubmit, formState: { errors } } = useForm<formProps>({ 
+    resolver: yupResolver(createUserSchema),
+    values: {
+      name: states.user?.name || '',
+      email: states.user?.email || '',
+      password: '',
+      confirm_password: '',
+      isAdmin: states.user?.isAdmin || false,
+    } 
+  });
+
+  if(!states.user && userId !== 'criar') {
+    return <EmptyScreen message="Usuário não encontrado. Tente novamente!" />
+  }
 
   return (
     <View

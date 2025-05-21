@@ -19,6 +19,7 @@ export default function Home() {
     <View className="flex-1 bg-white-200">
      <Header 
         name={states.user.name}
+        isAdmin={states.user.isAdmin}
         value={states.search}
         setValue={actions.handleDebounceSearch}
         createPost={actions.handleNavigateToCreatePost}
