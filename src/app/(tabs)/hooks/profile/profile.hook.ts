@@ -58,6 +58,10 @@ export const useProfile = () => {
     router.push(`/screens/post/criar` as RelativePathString);
   }
 
+  const handleNavigateToCreateUser = () => {
+    router.push(`/screens/user/criar` as RelativePathString);
+  }
+
   const deletePost = useMutation({
     mutationFn: async ({postId, userId}: {postId: string, userId: string}) =>
       await PostsService.deletePost({postId, userId}),
@@ -86,6 +90,7 @@ export const useProfile = () => {
       handleLoadMore,
       handleDeletePost,
       handleNavigateToPost,
+      handleNavigateToCreateUser,
       handleNavigateToCreatePost,
     }
   }

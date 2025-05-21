@@ -12,7 +12,7 @@ export default function Profile() {
     <View className="flex-1 bg-white-200">
       <Header
         createPost={actions.handleNavigateToCreatePost}
-        createUser={() => {}}
+        createUser={actions.handleNavigateToCreateUser}
         name={states.user.name}
       />
 

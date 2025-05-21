@@ -1,100 +1,61 @@
-import Octicons from '@expo/vector-icons/Octicons';
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Controller, useForm } from "react-hook-form";
-import { View } from "react-native";
+import { FlatList, View } from "react-native";
 
-import { Button } from '@/components/button/button.component';
-import { Input } from "@/components/inputs/input/input.component";
-import { colors } from '@/styles/colors';
+import { Button } from "@/components/button/button.component";
+import { CtaPost } from "@/components/ctas/cta-post/cta-post.component";
 import { Header } from './components/users/header/header.component';
-import { createUserSchema } from "./constants/users.constants";
 import { useUsers } from "./hooks/users/users.hook";
-import { formProps } from "./types/users.types";
 
 export default function Users() {
   const { states, actions } = useUsers();
-  const { control, handleSubmit, formState: { errors } } = useForm<formProps>({ resolver: yupResolver(createUserSchema) });
 
-  return (
-    <View>
-      <Header name={states.user.name} />
+   return (
+     <View className="flex-1 bg-white-200">
+      <Header 
+        name={states.user.name}
+        createUser={actions.handleNavigateToCreateUser}
+      />
+ 
+      <FlatList 
+         data={states.usersList}
+         keyExtractor={(item) => item.id}
+         horizontal={false}
+         showsVerticalScrollIndicator={false}
+         onRefresh={actions.handleRefresh}
+         refreshing={states.loadingRefesh}
+         onEndReached={actions.handleLoadMore}
+         onEndReachedThreshold={0.1}
+         contentContainerClassName='px-4 gap-4 py-4'
+         renderItem={({ item }) => (
+            <View
+              className="w-full flex flex-row items-center"
+            >
+              <CtaPost
+                width="w-4/5"
+                title={item.name}
+                firstDescription={item.email}
+                onPress={() => actions.handleNavigateToUser(item.id)}
+              />
 
-      <View
-        className="w-full flex flex-col gap-4 px-4 mb-8 pt-16"
-      >
-        <Controller 
-          control={control}
-          name="name"
-          render={({ field: { onChange, value } }) => (
-          <Input
-              label="Nome"
-              placeholder="Informe o seu nome"
-              value={value}
-              onChangeText={onChange}
-              errorMessage={errors.name?.message}
-              keyboardType="email-address"
-            />
-          )}
-        />
+              <View
+                className="gap-2 flex-1"
+              >
+                <Button
+                  text="Editar"
+                  textColor="text-white-100"
+                  className="w-full p-2 bg-green-400 rounded-md"
+                  onPress={() => actions.handleNavigateToUser(item.id)}
+                />
 
-        <Controller 
-          control={control}
-          name="email"
-          render={({ field: { onChange, value } }) => (
-          <Input
-              label="Email"
-              placeholder="Informe o seu email"
-              value={value}
-              onChangeText={onChange}
-              errorMessage={errors.email?.message}
-              keyboardType="email-address"
-            />
-          )}
-        />
-
-        <Controller 
-          control={control}
-          name="password"
-          render={({ field: { onChange, value } }) => (
-          <Input
-              label="Senha"
-              placeholder="Informe sua senha"
-              value={value}
-              onChangeText={onChange}
-              errorMessage={errors.password?.message}
-              keyboardType="default"
-              secureTextEntry={!states.showPassword}
-              icon={<Octicons name={states.showPassword ? 'eye' : 'eye-closed'} size={16} color={colors.gray[700]} />}
-              onPress={actions.handleShowPassword}
-            />
-          )}
-        />
-
-        <Controller 
-          control={control}
-          name="confirm_password"
-          render={({ field: { onChange, value } }) => (
-          <Input
-              label="Confirme sua senha"
-              placeholder="Informe sua senha novamente"
-              value={value}
-              onChangeText={onChange}
-              errorMessage={errors.confirm_password?.message}
-              keyboardType="default"
-              secureTextEntry={!states.showPassword}
-              icon={<Octicons name={states.showPassword ? 'eye' : 'eye-closed'} size={16} color={colors.gray[700]} />}
-              onPress={actions.handleShowPassword}
-            />
-          )}
-        />
-
-        <Button 
-          text="Criar usuário"
-          textColor="text-white-100"
-          onPress={handleSubmit(actions.onSubmit)}
-          loading={states.isLoading}
-        />
-      </View>
-    </View>
-  )
+                <Button
+                  text="Deletar"
+                  textColor="text-white-100"
+                  className="w-full p-2 bg-red-400 rounded-md"
+                  onPress={() => actions.handleDeleteUser(item.id)}
+                />
+              </View>
+            </View>
+         )}
+      />
+     </View>
+   );
 }

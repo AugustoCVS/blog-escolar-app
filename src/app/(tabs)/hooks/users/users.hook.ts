@@ -1,53 +1,64 @@
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { Toast } from "toastify-react-native";
-
 import { RootState } from "@/redux/store";
-import { RegisterRequestProps } from "@/services/interfaces/auth";
-import { AuthService } from "@/services/requests/auth";
+import { RelativePathString, useRouter } from "expo-router";
 import { useSelector } from "react-redux";
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../constants/users.constants";
 
 export const useUsers = () => {
+  const router = useRouter();
+
   const user = useSelector((state: RootState) => state.user);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const handleShowPassword = (): void => {
-    setShowPassword(!showPassword);
-  };
-
-  const createUser = useMutation({
-    mutationFn: (data: RegisterRequestProps) => AuthService.register(data),
-    onError: (err) => {
-      Toast.error(ERROR_MESSAGE)
+  const usersList = [
+    {
+      id: "1",
+      name: "John Doe",
+      email: "teste@teste.com",
     },
-    onSuccess: () => {
-     Toast.success(SUCCESS_MESSAGE)
+    {
+      id: "2",
+      name: "Jane Doe",
+      email: "teste@gmail.com",
     },
-  });
+    {
+      id: "3",
+      name: "John Smith",
+      email: "teste@teste.com",
+    },
+  ]
 
-  const onSubmit = (data: RegisterRequestProps) => {
-    const isAdmin = data.email.split('.')[0] === 'prof';
+  const handleRefresh = () => {
+    console.log("Refresh");
+  }
 
-    const updatedData = {
-      ...data,
-      isAdmin: isAdmin
-    }
+  const handleLoadMore = () => {
+    console.log("Load more");
+  }
 
-    createUser.mutate(updatedData);
-  };
+  const loadingRefesh = false;
 
-  const isLoading = createUser.isPending;
+  const handleNavigateToCreateUser = () => {
+    router.push(`/screens/user/criar` as RelativePathString);
+  }
+
+  const handleNavigateToUser = (id: string) => {
+    router.push(`/screens/user/${id}` as RelativePathString);
+  }
+
+  const handleDeleteUser = (id: string) => {
+    console.log("Delete user", id);
+  }
 
   return {
     states: {
       user,
-      isLoading,
-      showPassword,
+      usersList,
+      loadingRefesh,
     },
     actions: {
-      onSubmit,
-      handleShowPassword,
+      handleRefresh,
+      handleLoadMore,
+      handleNavigateToCreateUser,
+      handleDeleteUser,
+      handleNavigateToUser,
     },
   };
 };
