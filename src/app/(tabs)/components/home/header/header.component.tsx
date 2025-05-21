@@ -38,7 +38,7 @@ export const Header: React.FC<HeaderProps> = ({name, isAdmin, value, setValue, c
           value={value}
           icon={<AntDesign name="search1" size={18} color={colors.gray[700]} />}
           secondInput
-          width={isAdmin ? '3/4' : 'w-full'}
+          width={isAdmin ? 'w-3/4' : 'w-full'}
         />
 
        { isAdmin && (
