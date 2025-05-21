@@ -1,5 +1,5 @@
 import { RootState } from "@/redux/store"
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 import { useSelector } from "react-redux"
 
@@ -10,6 +10,7 @@ import { Toast } from "toastify-react-native"
 
 export const usePost = ({postId}: {postId: string}) => {
   const router = useRouter()
+  const queryClient = useQueryClient();
 
   const user = useSelector((state: RootState) => state.user);
 
@@ -35,6 +36,8 @@ export const usePost = ({postId}: {postId: string}) => {
     },
     onSuccess: () => {
       Toast.success('Post criado com sucesso!')
+      queryClient.invalidateQueries({ queryKey: ['getPosts'] });
+
       handleGoBackToHome()
     }
   })
@@ -47,6 +50,7 @@ export const usePost = ({postId}: {postId: string}) => {
     },
     onSuccess: () => {
       Toast.success('Post atualizado com sucesso!')
+      queryClient.invalidateQueries({ queryKey: ['getPosts'] });
 
       cancelEdit()
       getPostById.refetch()
@@ -62,6 +66,7 @@ export const usePost = ({postId}: {postId: string}) => {
     onSuccess: () => {
       Toast.success('Post deletado com sucesso!')
       handleGoBackToHome()
+      queryClient.invalidateQueries({ queryKey: ['getPosts'] });
     }
   })
 
@@ -75,10 +80,6 @@ export const usePost = ({postId}: {postId: string}) => {
 
   const cancelEdit = (): void => {
     setEdit(false)
-  }
-
-  const handleRefresh = (): void => {
-    getPostById.refetch()
   }
 
   const onFormSubmit = (data: CreatePostProps): void => {
@@ -104,7 +105,6 @@ export const usePost = ({postId}: {postId: string}) => {
 
   const post = getPostById.data
   const isLoading = getPostById.isLoading
-  const isRefetching = getPostById.isRefetching
   const isLoadingDeletePost = deletePost.isPending
   const isLoadingCreatePost = createPost.isPending
   const isLoadingUpdatePost = updatePost.isPending
@@ -122,7 +122,6 @@ export const usePost = ({postId}: {postId: string}) => {
     actions: {
       handleGoBackToHome,
       handleStartEdit,
-      handleRefresh,
       handleDelete,
       onFormSubmit,
       cancelEdit,

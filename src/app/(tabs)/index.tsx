@@ -21,6 +21,7 @@ export default function Home() {
         name={states.user.name}
         value={states.search}
         setValue={actions.handleDebounceSearch}
+        createPost={actions.handleNavigateToCreatePost}
      />
 
      <FlatList 
