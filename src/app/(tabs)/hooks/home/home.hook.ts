@@ -44,7 +44,7 @@ export const useHome = () => {
   }, [search]);
 
   const getPosts = useQuery({
-    queryKey: ["getPosts", paginationProps],
+    queryKey: ["getPosts"],
     queryFn: async () => {
       return await PostsService.getPosts({limit: paginationProps.limit, page: paginationProps.page});
     },
@@ -63,15 +63,23 @@ export const useHome = () => {
     refetchOnWindowFocus: false,
   });
 
+  const posts = debouncedSearch ? searchPosts.data : (getPosts.data || []);
+  const loadingRequest = searchPosts.isLoading || getPosts.isFetching
+  const loadingRefesh = getPosts.isRefetching;
+
   const handleRefresh = () => {
     getPosts.refetch();
   }
 
   const handleLoadMore = () => {
-    setPaginationProps({
-      ...paginationProps,
-      limit: paginationProps.limit + 10,
-    });
+    if ((posts?.length ?? 0) >= paginationProps.limit) {
+      setPaginationProps({
+        ...paginationProps,
+        limit: paginationProps.limit + 10,
+      });
+
+      getPosts.refetch();
+    }
   }
 
   const handleNavigateToPost = (id: string) => {
@@ -81,10 +89,6 @@ export const useHome = () => {
   const handleNavigateToCreatePost = () => {
     router.push(`/screens/post/criar` as RelativePathString);
   }
-
-  const posts = debouncedSearch ? searchPosts.data : ( getPosts.data || []);
-  const loadingRequest = searchPosts.isLoading || getPosts.isFetching
-  const loadingRefesh = getPosts.isRefetching;
 
   return {
     states: {

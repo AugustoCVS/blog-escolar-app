@@ -10,7 +10,7 @@ export default function User() {
   return (
     <View className="flex-1 bg-white-200">
       <Header
-        createPost={() => {}}
+        createPost={actions.handleNavigateToCreatePost}
         createUser={() => {}}
         name={states.user.name}
       />
@@ -39,18 +39,20 @@ export default function User() {
             />
 
             <View
-              className="gap-4 flex-1"
+              className="gap-2 flex-1"
             >
               <Button
                 text="Editar"
                 textColor="text-white-100"
-                className="w-full p-2 bg-green-500 rounded-md"
+                className="w-full p-2 bg-green-400 rounded-md"
+                onPress={() => actions.handleNavigateToPost(item.id)}
               />
 
               <Button
                 text="Deletar"
                 textColor="text-white-100"
-                className="w-full p-2 bg-red-500 rounded-md"
+                className="w-full p-2 bg-red-400 rounded-md"
+                onPress={() => actions.handleDeletePost(item.id)}
               />
             </View>
           </View>
