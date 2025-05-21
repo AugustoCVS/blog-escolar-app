@@ -1,11 +1,15 @@
+import { RootState } from '@/redux/store';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 
 export default function TabLayout() {
+  const user = useSelector((state: RootState) => state.user);
+  const isAdmin = user.isAdmin;
   const { bottom } = useSafeAreaInsets();
   const isIOS = Platform.OS === 'ios';
 
@@ -58,6 +62,32 @@ export default function TabLayout() {
         ),
       }}
     >
+
+      <Tabs.Screen
+        name="users"
+        options={{
+          title: 'Usuários',
+          tabBarIcon: ({ color, focused }) => (
+            <View 
+              className={`${isAdmin ? 'flex' : 'hidden'} ${focused && 'shadow-md shadow-orange-100'} rounded-full`}
+              pointerEvents={isAdmin ? 'auto' : 'none'}
+            >
+              <FontAwesome size={22} name="users" color={color} />
+            </View>
+          ),
+          tabBarButton: (props) =>
+            isAdmin ? (
+              <Pressable {...props as any} android_ripple={{ borderless: true, color: "transparent" }} style={props.style}>
+                {props.children}
+              </Pressable>
+            ) : (
+              <View style={props.style} pointerEvents="none">
+                {props.children}
+              </View>
+            ),
+        }}
+      />
+
       <Tabs.Screen
         name="index"
         options={{
@@ -78,13 +108,22 @@ export default function TabLayout() {
           title: 'Perfil',
           tabBarIcon: ({ color, focused }) => (
             <View
-              className={`${focused && 'shadow-md shadow-orange-100'} rounded-full`}
+              className={`${isAdmin ? 'flex' : 'hidden'} ${focused && 'shadow-md shadow-orange-100'} rounded-full`}
             >
-              <FontAwesome size={24} name="navicon" color={color} />
+              <FontAwesome size={24} name="user" color={color} />
             </View>
           ),
+          tabBarButton: (props) =>
+            isAdmin ? (
+              <Pressable {...props as any} android_ripple={{ borderless: true, color: "transparent" }} style={props.style}>
+                {props.children}
+              </Pressable>
+            ) : (
+              <View style={props.style} pointerEvents="none">
+                {props.children}
+              </View>
+            ),
         }}
       />
     </Tabs>
-  );
-}
+  )}
