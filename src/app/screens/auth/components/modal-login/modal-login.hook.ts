@@ -4,7 +4,6 @@ import { AuthService } from "@/services/requests/auth";
 import { saveTokensOnStorage } from "@/utils/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import { useToast } from "native-base";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Toast } from "toastify-react-native";
@@ -14,7 +13,6 @@ import { ModalLoginProps } from "./model-login.types";
 export const useModalLogin = ({ modalRef }: ModalLoginProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const toast = useToast();
 
   const[showPassword, setShowPassword] = useState(false);
   

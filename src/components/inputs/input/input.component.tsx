@@ -17,10 +17,12 @@ export const Input: React.FC<T.InputProps> = ({
   onChangeText,
   formatter,
   onPress,
+  width,
 }) => {
   const invalid = !!errorMessage || isInvalid;
   const borderColor = invalid ? "border-red-500" : "border-gray-300";
   const backgroundColor = secondInput && "bg-white-100";
+  const inputWidth = width ? width : "w-full";
 
   const handleChangeText = (text: string) => {
     if (!!formatter) {
@@ -32,7 +34,7 @@ export const Input: React.FC<T.InputProps> = ({
 
   return (
     <View 
-      className="flex flex-col mb-4 w-full"
+      className={`flex flex-col mb-4 ${inputWidth}`}
     >
       <View
         className="flex flex-col gap-2"

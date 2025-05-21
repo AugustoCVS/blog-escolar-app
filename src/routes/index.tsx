@@ -1,12 +1,22 @@
-import { useRouter } from 'expo-router';
 import { Stack } from 'expo-router/stack';
 import React from 'react';
 
 export default function MainStack() {
-  const router = useRouter();
-
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#fff',
+        },
+        headerTintColor: '#000',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          fontSize: 20,
+          fontWeight: 'bold',
+        },
+        headerBackButtonDisplayMode: 'minimal',
+      }}
+    >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
         name="screens/auth/auth"
@@ -18,7 +28,6 @@ export default function MainStack() {
         name="screens/post/[postId]"
         options={{
           title: "Postagem",
-          headerBackTitle: "Voltar",
         }}
       />
     </Stack>

@@ -18,3 +18,13 @@ export const formatPhone = (value: string): string => {
 export const formatCurrency = (value: number): string => {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
+
+export const formatDate = (date: Date): string => {
+  const formattedDate = date ? new Date(date).toLocaleDateString('pt-BR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }) : null;
+
+  return formattedDate || '';
+}

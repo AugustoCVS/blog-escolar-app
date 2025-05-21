@@ -13,4 +13,5 @@ export type InputProps = {
   secondInput?: boolean;
   icon?: React.ReactNode;
   onPress?: () => void;
+  width?: string;
 };
