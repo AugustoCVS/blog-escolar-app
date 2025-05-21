@@ -11,6 +11,7 @@ export const CtaPost: React.FC<ICtaPost> = ({
   firstDescription,
   secondDescription,
   date,
+  width,
   onPress
 }) => {
   const formatDate = date ? new Date(date).toLocaleDateString('pt-BR', {
@@ -21,6 +22,7 @@ export const CtaPost: React.FC<ICtaPost> = ({
 
   return (
     <Cta.Root
+      width={width}
       onPress={onPress}
     >
 

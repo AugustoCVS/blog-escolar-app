@@ -4,4 +4,5 @@ export interface ICtaPost {
   secondDescription?: string;
   date?: Date;
   onPress?: () => void;
+  width?: string;
 }

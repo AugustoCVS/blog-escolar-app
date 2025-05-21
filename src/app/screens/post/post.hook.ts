@@ -37,6 +37,7 @@ export const usePost = ({postId}: {postId: string}) => {
     onSuccess: () => {
       Toast.success('Post criado com sucesso!')
       queryClient.invalidateQueries({ queryKey: ['getPosts'] });
+      queryClient.invalidateQueries({ queryKey: ['getPostsByAuthor'] });
 
       handleGoBackToHome()
     }
@@ -51,6 +52,7 @@ export const usePost = ({postId}: {postId: string}) => {
     onSuccess: () => {
       Toast.success('Post atualizado com sucesso!')
       queryClient.invalidateQueries({ queryKey: ['getPosts'] });
+      queryClient.invalidateQueries({ queryKey: ['getPostsByAuthor'] });
 
       cancelEdit()
       getPostById.refetch()
@@ -67,6 +69,7 @@ export const usePost = ({postId}: {postId: string}) => {
       Toast.success('Post deletado com sucesso!')
       handleGoBackToHome()
       queryClient.invalidateQueries({ queryKey: ['getPosts'] });
+      queryClient.invalidateQueries({ queryKey: ['getPostsByAuthor'] });
     }
   })
 
