@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useEffect, useState } from "react";
 
 import { RootState } from "@/redux/store";
 import { PostsService } from "@/services/requests/posts";
@@ -85,6 +86,14 @@ export const useHome = () => {
   const posts = debouncedSearch ? searchPosts.data : ( getPosts.data || []);
   const loadingRequest = searchPosts.isLoading || getPosts.isFetching
   const loadingRefesh = getPosts.isRefetching;
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!loading && !debouncedSearch) {
+        getPosts.refetch();
+      }
+    }, [loading, debouncedSearch])
+  );
 
   return {
     states: {
