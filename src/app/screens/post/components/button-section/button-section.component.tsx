@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/button/button.component";
 import { View } from "react-native";
 import { ButtonSectionProps } from "./button-section.types";
@@ -20,14 +19,14 @@ export const ButtonSection: React.FC<ButtonSectionProps> = ({
     >
       {!isEdit && postId !== 'criar' ? (
         <Button
-          className="w-20 p-2 bg-green-300 rounded-md"
-          onPressIn={(event) => { event.preventDefault(); handleStartEdit() }}
+          className="w-20 p-2 bg-green-500 rounded-md"
+          onPress={handleStartEdit}
           text="Editar"
           textColor="text-white-100"
         />
         ) : (
           <Button
-            className="w-20 p-2 bg-green-300 rounded-md"
+            className="w-20 p-2 bg-green-500 rounded-md"
             loading={isLoading}
             onPress={handleSavePost}
             text="Salvar"
@@ -37,7 +36,7 @@ export const ButtonSection: React.FC<ButtonSectionProps> = ({
 
       {isEdit && (
         <Button
-          className="w-20 p-2 bg-red-300 rounded-md"
+          className="w-22 p-2 bg-red-500 rounded-md"
           onPress={() => {
             resetField('title')
             resetField('content')
@@ -50,7 +49,7 @@ export const ButtonSection: React.FC<ButtonSectionProps> = ({
 
       {(postId !== 'criar' && !isEdit) && (
         <Button
-          className="w-20 p-2 bg-red-300 rounded-md"
+          className="w-20 p-2 bg-red-500 rounded-md"
           onPress={handleDeletePost}
           loading={isDeleting}
           text="Excluir"

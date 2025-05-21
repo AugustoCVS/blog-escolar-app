@@ -110,6 +110,7 @@ export default function Post() {
                 onChangeText={onChange}
                 errorMessage={errors.author?.message}
                 keyboardType="default"
+                width="w-2/4"
               />
             )}
           />
