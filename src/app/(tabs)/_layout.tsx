@@ -71,6 +71,20 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="user"
+        options={{
+          title: 'User',
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              className={`${focused && 'shadow-md shadow-orange-100'} rounded-full`}
+            >
+              <FontAwesome size={24} name="user" color={color} />
+            </View>
+          ),
+        }}
+      />
     </Tabs>
   );
 }

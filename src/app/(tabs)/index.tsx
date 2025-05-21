@@ -7,7 +7,7 @@ import { useHome } from './hooks/home/home.hook';
 export default function Home() {
   const { states, actions } = useHome();
 
-  if (states.loading) {
+  if (states.loading || states.loadingRefesh) {
     return <Text>Loading...</Text>;
   }
 
