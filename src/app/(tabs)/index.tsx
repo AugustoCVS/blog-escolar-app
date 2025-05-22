@@ -1,5 +1,4 @@
 import { CtaPost } from '@/components/ctas/cta-post/cta-post.component';
-import { EmptyScreen } from '@/components/empty-screen/empty-screen.component';
 import { Redirect } from 'expo-router';
 import { FlatList, Text, View } from 'react-native';
 import { Header } from './components/home/header/header.component';
@@ -14,10 +13,6 @@ export default function Home() {
 
   if (!states.token) {
     return <Redirect href="/screens/auth/auth" />;
-  }
-
-  if(!states.posts?.length) {
-    return <EmptyScreen message="Nenhum post encontrado no momento!" />
   }
 
   return (
