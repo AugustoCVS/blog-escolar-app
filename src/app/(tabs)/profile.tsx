@@ -3,11 +3,16 @@ import { CtaPost } from "@/components/ctas/cta-post/cta-post.component";
 import { FlatList, View } from "react-native";
 
 import { EmptyScreen } from "@/components/empty-screen/empty-screen.component";
+import { Redirect } from "expo-router";
 import { Header } from "./components/profile/header/header.component";
 import { useProfile } from "./hooks/profile/profile.hook";
 
 export default function Profile() {
   const { states, actions } = useProfile();
+
+  if (!states.user.isAdmin) {
+    return <Redirect href="/(tabs)" />;
+  }
 
   if(!states.posts.length) {
     return <EmptyScreen message="Nenhum post encontrado no momento!" />

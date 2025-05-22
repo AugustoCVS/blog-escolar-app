@@ -2,11 +2,16 @@ import { FlatList, View } from "react-native";
 
 import { Button } from "@/components/button/button.component";
 import { CtaPost } from "@/components/ctas/cta-post/cta-post.component";
+import { Redirect } from "expo-router";
 import { Header } from './components/users/header/header.component';
 import { useUsers } from "./hooks/users/users.hook";
 
 export default function Users() {
   const { states, actions } = useUsers();
+
+    if (!states.user.isAdmin) {
+      return <Redirect href="/(tabs)" />;
+    }
 
    return (
      <View className="flex-1 bg-white-200">
