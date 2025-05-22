@@ -27,17 +27,17 @@ Aplicativo mobile desenvolvido em React Native com Expo para gestão de um blog 
    ```
 3. **Integração backend**
    Ao iniciar o projeto você verá a seguinte mensagem
-     > Metro waiting on exp://XXX.XXX.X.XXX:8081
-   Você deverá:
-      - Colocar sua rota de IPV4 no BASE_URL do arquivo api.ts
+     > Metro waiting on exp://XXX.XXX.X.XXX:80817
+
+   Você deverá colocar sua rota de IPV4 no BASE_URL do arquivo api.ts
       ```bash
-         const BASE_URL = "http://XXX.XXX.X.XXX:3001";
+      const BASE_URL = "http://XXX.XXX.X.XXX:3001";
       ```
 4. **Execução do app:**
    ```bash
    npx expo start
    ```
-   Caso o Expo abra usando o *development build* basta apertar a tecla *s* e trocar para o Expo Go
+   Caso o Expo abra usando o *development build* basta apertar a tecla *S* e trocar para o Expo Go
    O Expo abrirá opções para rodar no emulador Android/iOS ou no dispositivo físico via QR Code.
 
 ### Arquitetura da Aplicação e Tecnologias Utilizadas
