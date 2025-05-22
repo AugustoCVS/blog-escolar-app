@@ -14,9 +14,9 @@ import { formProps, ModalRegisterProps } from "./modal-register.types";
 export const ModalRegister: React.FC<ModalRegisterProps> = ({
   modalRef
 }) => {
-  const { states, actions } = useModalRegister({ modalRef });
+  const { control, handleSubmit, formState: { errors }, resetField } = useForm<formProps>({ resolver: yupResolver(signUpSchema) });
 
-  const { control, handleSubmit, formState: { errors } } = useForm<formProps>({ resolver: yupResolver(signUpSchema) });
+  const { states, actions } = useModalRegister({ modalRef, resetField });
 
   return (
     <Modal

@@ -53,7 +53,7 @@ export const useUser = ({userId}: {userId: string}) => {
       queryClient.invalidateQueries({ queryKey: ['userById'] });
 
       Toast.success(SUCCESS_MESSAGE)
-      handleGoToUserList()
+      router.back()
     },
   });
 
@@ -61,13 +61,13 @@ export const useUser = ({userId}: {userId: string}) => {
     mutationFn: async ({id, data}: UpdateUserProps) => {
        return await UserService.updateUser({ id, data })
     },
-    onError: (err) => {
-      console.log(err)
+    onError: () => {
       Toast.error(EDIT_ERROR_MESSAGE)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userList'] });
       queryClient.invalidateQueries({ queryKey: ['userById'] });
+      cancelEdit()
 
       Toast.success(EDIT_SUCCESS_MESSAGE)
     },

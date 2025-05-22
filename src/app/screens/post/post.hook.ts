@@ -39,7 +39,7 @@ export const usePost = ({postId}: {postId: string}) => {
       queryClient.invalidateQueries({ queryKey: ['getPosts'] });
       queryClient.invalidateQueries({ queryKey: ['getPostsByAuthor'] });
 
-      handleGoBackToHome()
+      router.back()
     }
   })
 

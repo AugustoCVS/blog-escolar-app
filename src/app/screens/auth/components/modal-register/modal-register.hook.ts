@@ -7,7 +7,7 @@ import { AuthService } from "@/services/requests/auth";
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "./modal-register.constants";
 import { ModalRegisterProps } from "./modal-register.types";
 
-export const useModalRegister = ({ modalRef }: ModalRegisterProps) => {
+export const useModalRegister = ({ modalRef, resetField }: ModalRegisterProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleShowPassword = (): void => {
@@ -26,6 +26,10 @@ export const useModalRegister = ({ modalRef }: ModalRegisterProps) => {
     onSuccess: () => {
      Toast.success(SUCCESS_MESSAGE)
       handleCloseModalRegister();
+      resetField('name')
+      resetField('email')
+      resetField('password')
+      resetField('confirm_password')
     },
   });
 
